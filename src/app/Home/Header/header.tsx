@@ -19,7 +19,7 @@ declare global {
     toggleMenu?: (e?: any) => void;
     closeMenu?: () => void;
     deviceId?: string;
-    userProfile?: any;
+    userProfileRaw?: any;
   }
 }
 
@@ -66,13 +66,13 @@ const Header = () => {
       const usersStore = JSON.parse(localStorage.getItem('booka_users') || '{}') || {};
       if (usersStore.sessions && usersStore.sessions[deviceId]) {
         currentUser = usersStore.sessions[deviceId];
-      } else if (win.userProfile) {
-        currentUser = win.userProfile;
+      } else if (win.userProfileRaw) {
+        currentUser = win.userProfileRaw;
       } else {
         currentUser = mockUser;
       }
     } catch (e) {
-      currentUser = win.userProfile || mockUser;
+      currentUser = win.userProfileRaw || mockUser;
     }
     const loggedIn = !!currentUser?.loggedIn;
     setUser(currentUser);
